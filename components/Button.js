@@ -1,9 +1,24 @@
 import {TouchableOpacity, StyleSheet, Text} from "react-native";
 
-function Button({children, type, style, ...rest}) {
+function Button({children, type, style, disabled, ...rest}) {
   return (
-    <TouchableOpacity style={[styles.button, styles[type], style]} {...rest}>
-      <Text style={[styles.buttonText, styles[`${type}ButtonText`]]}>
+    <TouchableOpacity
+      style={[
+        styles.button,
+        styles[type],
+        disabled && styles["disabled"],
+        style,
+      ]}
+      disabled={disabled}
+      {...rest}
+    >
+      <Text
+        style={[
+          styles.buttonText,
+          styles[`${type}ButtonText`],
+          disabled && styles["disabledButtonText"],
+        ]}
+      >
         {children}
       </Text>
     </TouchableOpacity>
@@ -19,6 +34,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 10,
   },
+
   primary: {
     backgroundColor: "#335CFF",
   },
@@ -32,6 +48,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05, // iOS
     shadowRadius: 2, // iOS
     elevation: 5, // Android
+  },
+  disabled: {
+    backgroundColor: "#F5F7FA",
   },
 
   buttonText: {
@@ -47,6 +66,16 @@ const styles = StyleSheet.create({
 
   secondaryButtonText: {
     color: "#525866",
+  },
+
+  linkButtonText: {
+    color: "#525866",
+    fontFamily: "Inter_100Medium",
+    textDecorationLine: "underline",
+  },
+
+  disabledButtonText: {
+    color: "#CACFD8",
   },
 });
 

@@ -1,17 +1,18 @@
 import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
 import {Feather} from "@expo/vector-icons";
+import {decodeTeslaVin} from "../util/tesla";
 
 function VehicleSelectOption({vehicle, selected, onSelect}) {
   return (
     <TouchableOpacity
-      style={[styles.selectBox, selected == vehicle.name && styles.selectedBox]}
-      onPress={() => onSelect(vehicle.name)}
+      style={[styles.selectBox, selected == vehicle.vin && styles.selectedBox]}
+      onPress={() => onSelect(vehicle.vin)}
     >
       <View>
-        <Text style={styles.title}>{vehicle.name}</Text>
-        <Text style={styles.subtitle}>{vehicle.model}</Text>
+        <Text style={styles.title}>{vehicle.display_name}</Text>
+        <Text style={styles.subtitle}>{decodeTeslaVin(vehicle.vin)}</Text>
       </View>
-      {selected == vehicle.name ? (
+      {selected == vehicle.vin ? (
         <Feather name="check-square" size={24} color="#335CFF" />
       ) : (
         <Feather
