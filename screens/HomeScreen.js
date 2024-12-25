@@ -9,7 +9,7 @@ function HomeScreen({navigation}) {
 
   return (
     <Screen>
-      <Text style={styles.heading}>Hi [user], see your settings below</Text>
+      <Text style={styles.heading}>Hi, see your settings below</Text>
 
       <View>
         {vehicleReminders?.map(vehicle => (

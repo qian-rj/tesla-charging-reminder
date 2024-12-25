@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   infoText: {
     paddingVertical: 3,
     marginLeft: 12,
-    flexGrow: 1,
     flexDirection: "column",
     justifyContent: "space-between",
   },

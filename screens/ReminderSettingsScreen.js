@@ -1,63 +1,80 @@
-import {View, Text, TextInput, StyleSheet} from "react-native";
+import {View, Text, StyleSheet} from "react-native";
 import Button from "../components/Button";
+import Vehicle from "../components/Vehicle";
+import Header from "../layout/Header";
+import Screen from "../layout/Screen";
+import Input from "../components/Input";
 
-// TO DO - HEADER WITH VEHICLE COMPONENT
-
-function ReminderSettingsScreen({vehicle}) {
+function ReminderSettingsHeader({params}) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Full Charge Mileage (mi)</Text>
-      <Text style={styles.label}>Reminder Percentage</Text>
+    <Header>
+      <Vehicle vehicle={params} />
+    </Header>
+  );
+}
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g. 300"
-          keyboardType="numeric"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="e.g. 80"
-          keyboardType="numeric"
-        />
+// TODO - DISABLE/ENABLE BUTTON AND STATE UPDATE
+function ReminderSettingsScreen({route}) {
+  const vehicle = route?.params;
+
+  return (
+    <Screen>
+      <View style={styles.settingsContainer}>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Full Charge Mileage (mi)</Text>
+          <Input placeholder="e.g. 300" keyboardType="numeric" />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Reminder Percentage</Text>
+          <Input
+            placeholder="e.g. 80"
+            keyboardType="numeric"
+            maxLength={2}
+            rightText="%"
+            rightStyle={{position: "absolute", right: 12}}
+          />
+        </View>
       </View>
 
       <Button type="secondary" style={styles.button}>
-        Change Settings
+        Change settings
       </Button>
-    </View>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingHorizontal: 20,
-    paddingVertical: 40,
-  },
-  label: {
-    fontSize: 16,
-    color: "#0E121B",
-    marginBottom: 8,
-    fontFamily: "Inter_500Medium", // use your font configuration here
-  },
-  inputContainer: {
+  header: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 20,
+    alignItems: "center",
   },
-  input: {
-    height: 40,
-    borderColor: "#ccc",
-    borderWidth: 1,
+
+  label: {
+    fontSize: 12,
+    color: "#0E121B",
+    marginBottom: 8,
+    fontFamily: "Inter_500Medium",
+  },
+
+  settingsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+
+  inputContainer: {
+    flexDirection: "column",
+    maxWidth: "48%",
     flex: 1,
-    marginHorizontal: 5,
-    paddingHorizontal: 10,
   },
+
   button: {
     marginTop: 20,
   },
 });
 
+export {ReminderSettingsHeader};
 export default ReminderSettingsScreen;

@@ -1,7 +1,10 @@
-import {StyleSheet, View} from "react-native";
+import {StyleSheet} from "react-native";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 function Screen({style, children}) {
-  return <View style={[style, styles.container]}>{children}</View>;
+  return (
+    <SafeAreaView style={[style, styles.container]}>{children}</SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -9,7 +12,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: "100%",
     paddingHorizontal: 20,
-    paddingVertical: 40,
   },
 });
 

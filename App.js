@@ -10,7 +10,9 @@ import {persistor, store} from "./store/configureStore";
 import {PersistGate} from "redux-persist/integration/react";
 import {Text} from "react-native";
 import AuthScreen from "./screens/AuthScreen";
-import ReminderSettingsScreen from "./screens/ReminderSettingsScreen";
+import ReminderSettingsScreen, {
+  ReminderSettingsHeader,
+} from "./screens/ReminderSettingsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,17 +43,15 @@ function App() {
               name="AddVehicle"
               component={AddVehicleScreen}
               options={{
-                headerTitle: () => <AddVehicleHeader />,
-                headerBackVisible: false,
+                header: props => <AddVehicleHeader {...props} />,
               }}
             />
             <Stack.Screen
               name="ReminderSettings"
               component={ReminderSettingsScreen}
-              options={{
-                headerTitle: () => <AddVehicleHeader />,
-                headerBackVisible: false,
-              }}
+              options={({route}) => ({
+                header: () => <ReminderSettingsHeader params={route?.params} />,
+              })}
             />
           </Stack.Navigator>
         </NavigationContainer>

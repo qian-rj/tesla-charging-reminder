@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {StyleSheet, Text} from "react-native";
 import Screen from "../layout/Screen";
 import {useNavigation} from "@react-navigation/native";
 import VehicleSelect from "../components/VehicleSelect";
@@ -7,20 +7,13 @@ import {useEffect, useState} from "react";
 import {getVehicles} from "../store/auth";
 import {addVehicleReminder} from "../store/settingsSlice";
 import {useDispatch} from "react-redux";
+import Header from "../layout/Header";
 
 function AddVehicleHeader() {
-  const navigation = useNavigation();
-
   return (
-    <View style={styles.header}>
+    <Header>
       <Text style={styles.text}>New vehicle</Text>
-      <TouchableOpacity
-        style={styles.headerX}
-        onPress={() => navigation.goBack()}
-      >
-        <Text>X</Text>
-      </TouchableOpacity>
-    </View>
+    </Header>
   );
 }
 
@@ -50,6 +43,7 @@ function AddVehicleScreen() {
   return (
     <Screen>
       <Text style={styles.label}>Select vehicle</Text>
+
       {loading ? (
         <Text style={styles.loadingText}>Loading vehicles...</Text>
       ) : vehicles?.length > 0 ? (
@@ -76,12 +70,6 @@ function AddVehicleScreen() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
   text: {
     fontSize: 14,
     fontWeight: 500,
@@ -90,9 +78,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 500,
     marginBottom: 8,
-  },
-  headerX: {
-    color: "black",
   },
   selectText: {
     fontWeight: 500,

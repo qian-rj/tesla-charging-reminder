@@ -5,6 +5,7 @@ import {useNavigation} from "@react-navigation/native";
 import Button from "../components/Button";
 import {storeAccessToken} from "../store/auth";
 
+// TODO - REFRESH TOKEN + AUTO REFRESH
 function AuthScreen() {
   const [accessToken, setAccessToken] = useState("");
   const navigation = useNavigation();
