@@ -1,13 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {decodeTeslaVin} from "../util/tesla";
-
-class VehicleNotification {
-  constructor(vin, display_name, model) {
-    this.vin = vin;
-    this.display_name = display_name;
-    this.model = model;
-  }
-}
+import {generateId} from "../util/auth";
 
 const settingsSlice = createSlice({
   name: "settings",
@@ -16,13 +9,41 @@ const settingsSlice = createSlice({
   },
   reducers: {
     addVehicleReminder(state, action) {
+      const {display_name, vin} = action.payload;
+
       state.vehicleReminders.push({
+        id: generateId(36),
+        full_charge_miles: 300,
+        reminder_percentage: 80,
         model: decodeTeslaVin(action.payload.vin),
-        ...action.payload,
+        display_name,
+        vin,
       });
+    },
+
+    updateVehicleReminder(state, action) {
+      const {full_charge_miles, reminder_percentage} = action.payload;
+      const index = state.vehicleReminders.indexOf(
+        state.vehicleReminders.find(v => v.id == action.payload.id)
+      );
+      state.vehicleReminders[index] = {
+        ...state.vehicleReminders[index],
+        full_charge_miles,
+        reminder_percentage,
+      };
+    },
+
+    deleteVehicleReminder(state, action) {
+      state.vehicleReminders = state.vehicleReminders.filter(
+        v => v.id != action.payload
+      );
     },
   },
 });
 
-export const {addVehicleReminder} = settingsSlice.actions;
+export const {
+  addVehicleReminder,
+  updateVehicleReminder,
+  deleteVehicleReminder,
+} = settingsSlice.actions;
 export default settingsSlice.reducer;
